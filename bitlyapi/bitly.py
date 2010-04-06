@@ -49,11 +49,6 @@ class BitLy (object):
         self.api_user = api_user
         self.api_key = api_key
 
-        # Check credentials: this calls the errors() method, which
-        # will raise an exception if we have invalid credentials
-        # (or a bad URL, etc).
-        res = self.errors()
-
     def _build_query_string(self, kwargs):
         params = {
                 'login'     : self.api_user,
@@ -79,16 +74,14 @@ class BitLy (object):
             fd = urllib.urlopen(url, query_string)
             res = json.loads(fd.read())
 
-            if res['errorCode'] != 0:
+            if res['status_code'] != 200:
                 raise APIError(
-                        res['errorCode'],
-                        res['errorMessage'],
+                        res['status_code'],
+                        res['status_txt'],
                         res)
-            elif not 'results' in res:
+            elif not 'data' in res:
                 raise APIError(-1, 'Unexpected response from bit.ly.', res)
-
-            return res['results']
-
+            return res['data']
         return _
 
 def main():
