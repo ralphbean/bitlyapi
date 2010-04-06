@@ -2,7 +2,7 @@
 Python bit.ly wrapper
 =====================
 
-This is a thin Python wrapper for the `bit.ly api`.  Basic usage looks like
+This is a thin Python wrapper for the `bit.ly API`_.  Basic usage looks like
 this::
 
   >>> import bitlyapi
@@ -25,9 +25,14 @@ decoding the JSON returned from bit.ly.  For example::
                               'userHash': '6Hwstb'}}
 
 You can supply arbitrary keywords to method calls and they will be passed
-to the bit.ly REST API::
+to the `bit.ly API`_::
 
-  >>> res = b.shorten(longUrl=url,keyword='mycustomkeyword')
+  >>> res = b.shorten(longUrl=url, keyword='mycustomkeyword')
 
-.. _bit.ly api: http://code.google.com/p/bitly-api/wiki/ApiDocumentation
+.. Note::
+
+    Requesting custom short links using the `keyword` argument is not supported
+    anymore by the API.
+
+.. _bit.ly API: http://code.google.com/p/bitly-api/wiki/ApiDocumentation
 
