@@ -5,8 +5,7 @@ import sys
 import urllib
 import simplejson as json
 
-API_URL = 'http://api.bit.ly'
-API_VERSION = '2.0.1'
+API_URL = 'http://api.bit.ly/v3'
 
 class APIError (Exception):
     '''Raised by BitLy instances in the event of errors returned by the 
@@ -44,8 +43,7 @@ class BitLy (object):
 
     '''
 
-    api_version = API_VERSION
-    api_url     = API_URL
+    api_url = API_URL
 
     def __init__ (self, api_user, api_key):
         self.api_user = api_user
@@ -58,7 +56,6 @@ class BitLy (object):
 
     def _build_query_string(self, kwargs):
         params = {
-                'version'   : self.api_version,
                 'login'     : self.api_user,
                 'apiKey'    : self.api_key,
                 }
