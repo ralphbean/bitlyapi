@@ -3,7 +3,11 @@
 import os
 import sys
 import urllib
-import simplejson as json
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
 
 API_URL = 'http://api.bit.ly/v3'
 
