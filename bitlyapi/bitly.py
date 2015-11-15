@@ -2,7 +2,17 @@
 
 import os
 import sys
-import urllib
+
+try:
+    # Python3
+    from urllib.parse import urlencode
+    from urllib.request import urlopen
+except ImportError:
+    # Python2
+    from urllib import urlencode
+    from urllib import urlopen
+
+
 try:
     import json
 except ImportError:
@@ -60,7 +70,7 @@ class BitLy (object):
                 }
 
         params.update(kwargs)
-        return urllib.urlencode(params)
+        return urlencode(params)
 
     def __getattr__ (self, func):
         '''Generates a function that calls *func* via the bit.ly
@@ -75,8 +85,8 @@ class BitLy (object):
         def _ (**kwargs):
             url = '/'.join([self.api_url, func])
             query_string = self._build_query_string(kwargs)
-            fd = urllib.urlopen(url, query_string)
-            res = json.loads(fd.read())
+            fd = urlopen(url, query_string.encode('utf-8'))
+            res = json.loads(fd.read().decode('utf-8'))
 
             if res['status_code'] != 200:
                 raise APIError(

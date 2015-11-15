@@ -1,4 +1,4 @@
-import bitly
+from . import bitly
 
 BitLy = bitly.BitLy
 
